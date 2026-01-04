@@ -25,8 +25,19 @@ class FlutterPlugin {
         });
 
         window.toast('Flutter & Dart Plugin Initialized!', 3000);
-    }
 
+           this.updatePreviewDebounced = debounce((code) => {
+            this.sendToIframe(code);
+        }, 1000);
+
+        // Listen for changes in the editor
+        editorManager.on('change', () => {
+            const activeFile = editorManager.activeFile;
+            if (activeFile && activeFile.name.endsWith('.dart')) {
+                this.updatePreviewDebounced(activeFile.session.getValue());
+        }
+     }
+   
     setupIntellisense() {
         const { editor } = editorManager;
         const languageTools = ace.require("ace/ext/language_tools");
@@ -45,7 +56,19 @@ class FlutterPlugin {
 
         languageTools.addCompleter(dartCompleter);
     }
-
+    renderPreviewPane() {
+        // ... (Same iframe setup as before)
+        this.sidePane.show({
+            id: 'flutter-preview',
+            title: 'Flutter Live',
+            content: content,
+            onshow: () => {
+                const code = editorManager.activeFile.session.getValue();
+                // Initial load: give DartPad a moment to initialize
+                setTimeout(() => this.sendToIframe(code), 3000);
+            }
+        });
+    }
     openPreviewer() {
         const activeFile = editorManager.activeFile;
         if (!activeFile || !activeFile.name.endsWith('.dart')) {
@@ -70,7 +93,16 @@ class FlutterPlugin {
         // Note: You would typically post the 'code' to the DartPad iframe 
         // using window.postMessage once the frame loads.
     }
-
+    sendToIframe(code) {
+        const iframe = document.getElementById('flutter-iframe');
+        if (iframe && iframe.contentWindow) {
+            console.log('Refreshing Flutter Preview...');
+            iframe.contentWindow.postMessage({
+                type: 'sourceCode',
+                sourceCode: code,
+            }, '*');
+        }
+    }
     async destroy() {
         // Cleanup commands or listeners here
     }
