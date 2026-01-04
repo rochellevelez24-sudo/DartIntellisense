@@ -1,0 +1,14 @@
+{
+  "id": "com.rochellevelez24-sudo.flutter.intellisense",
+  "name": "Flutter Dart Pro",
+  "main": "main.js",
+  "version": "1.0.0",
+  "author": {
+    "name": "rochellevelez24-sudo",
+    "email": "rochellevelez24@gmail.com"
+  },
+  "icon": "icon.png",
+  "readme": "README.md",
+  "keywords": ["flutter", "dart", "intellisense", "preview"],
+  "minVersionCode": 290
+}
