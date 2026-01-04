@@ -1,0 +1,51 @@
+{
+  "Stateless Widget": {
+    "prefix": "stless",
+    "body": [
+      "class ${1:MyWidget} extends StatelessWidget {",
+      "  const ${1:MyWidget}({super.key});",
+      "",
+      "  @override",
+      "  Widget build(BuildContext context) {",
+      "    return ${2:Container()};",
+      "  }",
+      "}"
+    ]
+  },
+  "Stateful Widget": {
+    "prefix": "stful",
+    "body": [
+      "class ${1:MyWidget} extends StatefulWidget {",
+      "  const ${1:MyWidget}({super.key});",
+      "",
+      "  @override",
+      "  State<${1:MyWidget}> createState() => _${1:MyWidget}State();",
+      "}",
+      "",
+      "class _${1:MyWidget}State extends State<${1:MyWidget}> {",
+      "  @override",
+      "  Widget build(BuildContext context) {",
+      "    return ${2:Container()};",
+      "  }",
+      "}"
+    ]
+  },
+  "Build Method": {
+    "prefix": "build",
+    "body": [
+      "@override",
+      "Widget build(BuildContext context) {",
+      "  return ${1:Container()};",
+      "}"
+    ]
+  },
+  "Scaffold": {
+    "prefix": "scaf",
+    "body": [
+      "Scaffold(",
+      "  appBar: AppBar(title: const Text('${1:Title}')),",
+      "  body: ${2:Center(child: Text('Hello World'))},",
+      ")"
+    ]
+  }
+}
